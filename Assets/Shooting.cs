@@ -35,7 +35,10 @@ public class Shooting : MonoBehaviour
 
     void Shoot() {
         var gamepad = Gamepad.current;
-        Vector3 lookDirection = new Vector3(gamepad.rightStick.ReadValue().x, gamepad.rightStick.ReadValue().y, 0f);
+        Vector3 lookVector = gamepad.rightStick.ReadValue();
+        Vector3 rotatedVector = Quaternion.Euler(0,0,0) * lookVector;
+        firePoint.rotation = Quaternion.LookRotation(forward: Vector3.forward, upwards: rotatedVector);
+        
         print("X:" + gamepad.rightStick.ReadValue().x + "       ///////////    Y: " + gamepad.rightStick.ReadValue().y);
 
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);

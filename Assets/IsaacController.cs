@@ -8,6 +8,7 @@ public class IsaacController : MonoBehaviour
 
     Rigidbody2D body;
     public Transform firePoint;
+    public Animator animator;
 
     public float runSpeed = 20.0f;
     Vector2 headPos;
@@ -28,9 +29,35 @@ public class IsaacController : MonoBehaviour
         }
 
         body.velocity = gamepad.leftStick.ReadValue() * runSpeed;
-        
-        Vector3 lookVector = gamepad.rightStick.ReadValue();
-        Vector3 rotatedVector = Quaternion.Euler(0,0,0) * lookVector;
-        firePoint.rotation = Quaternion.LookRotation(forward: Vector3.forward, upwards: rotatedVector);
+        if(gamepad.leftStick.ReadValue().y < 0 && gamepad.leftStick.ReadValue().y < gamepad.leftStick.ReadValue().x) {
+            animator.SetBool("MoveRight", false);
+            animator.SetBool("MoveLeft", false);
+            animator.SetBool("MoveUp", false);
+
+            animator.SetBool("MoveDown", true);
+        } else if(gamepad.leftStick.ReadValue().y > 0 && gamepad.leftStick.ReadValue().y > gamepad.leftStick.ReadValue().x) {
+            animator.SetBool("MoveDown", false);
+            animator.SetBool("MoveLeft", false);
+            animator.SetBool("MoveRight", false);
+
+            animator.SetBool("MoveUp", true);
+        } else if(gamepad.leftStick.ReadValue().x < 0 && gamepad.leftStick.ReadValue().x < gamepad.leftStick.ReadValue().y) {
+            animator.SetBool("MoveDown", false);
+            animator.SetBool("MoveRight", false);
+            animator.SetBool("MoveUp", false);
+
+            animator.SetBool("MoveLeft", true);
+        } else if(gamepad.leftStick.ReadValue().x > 0 && gamepad.leftStick.ReadValue().x > gamepad.leftStick.ReadValue().y) {
+            animator.SetBool("MoveDown", false);
+            animator.SetBool("MoveLeft", false);
+            animator.SetBool("MoveUp", false);
+
+            animator.SetBool("MoveRight", true);
+        } else {
+            animator.SetBool("MoveDown", false);
+            animator.SetBool("MoveLeft", false);
+            animator.SetBool("MoveUp", false);
+            animator.SetBool("MoveRight", false);
+        }
     }
 }
