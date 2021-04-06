@@ -38,4 +38,8 @@ public class IsaacController : MonoBehaviour
         animator.SetFloat("Vertical", gamepad.leftStick.ReadValue().y);
         animator.SetFloat("Speed", gamepad.leftStick.ReadValue().sqrMagnitude);
     }
+
+    public void setSpeed(float modifier) {
+        Speed += modifier;
+    }
 }

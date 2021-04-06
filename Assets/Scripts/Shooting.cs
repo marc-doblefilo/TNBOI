@@ -9,13 +9,16 @@ public class Shooting : MonoBehaviour
     
     public Transform firePoint;
     public GameObject bulletPrefab;
-    public Text DamageUIText;
 
     public float Force = 20f;
     public float Cooldown = 1.25f;
     public float Damage = 1.0f;
 
     private float NextShoot;
+
+    public Text DamageUIText;
+    public Text ForceUIText;
+    public Text CooldownUIText;
 
     void Start()
     {
@@ -25,6 +28,8 @@ public class Shooting : MonoBehaviour
     void Update()
     {
         DamageUIText.text = Damage.ToString();
+        ForceUIText.text = Force.ToString();
+        CooldownUIText.text = Cooldown.ToString();
 
         var gamepad = Gamepad.current;
         if(gamepad == null) {
@@ -54,5 +59,13 @@ public class Shooting : MonoBehaviour
 
     public void setDamage(float modifier) {
         Damage += modifier;
+    }
+
+    public void setForce(float modifier) {
+        Force += modifier;
+    }
+
+    public void setCooldown(float modifier) {
+        Cooldown += modifier;
     }
 }

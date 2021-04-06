@@ -7,7 +7,7 @@ public class Tear : MonoBehaviour
     public float damage;
 
     private void OnTriggerEnter2D(Collider2D coll) {
-        if(coll.tag != "Player") {
+        if(coll.tag != "Player" && coll.tag != "Item") {
             Enemy enemy = coll.GetComponent<Enemy>();
             if(enemy != null) {
                 enemy.TakeDamage(damage);
