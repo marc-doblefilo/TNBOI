@@ -10,6 +10,7 @@ public class Item : MonoBehaviour
     public float _damage;
     public float _force;
     public float _cooldown;
+    public float _range;
 
     private void OnTriggerEnter2D(Collider2D coll) {
         if(coll.tag == "Player") {
@@ -17,9 +18,10 @@ public class Item : MonoBehaviour
             IsaacController controller = coll.GetComponent<IsaacController>();
             if(player != null) {
                 controller.setSpeed(_speed);
-                player.setDamage(_damage);
-                player.setForce(_force);
-                player.setCooldown(_cooldown);
+                player.addDamage(_damage);
+                player.addForce(_force);
+                player.addCooldown(_cooldown);
+                player.addRange(_range);
             }
             Destroy(gameObject);
         }

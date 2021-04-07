@@ -5,6 +5,8 @@ using UnityEngine;
 public class Tear : MonoBehaviour
 {
     public float damage;
+    public float range;
+    public float bulletSpeed;
 
     private void OnTriggerEnter2D(Collider2D coll) {
         if(coll.tag != "Player" && coll.tag != "Item") {
@@ -14,5 +16,6 @@ public class Tear : MonoBehaviour
             }
             Destroy(gameObject);
         }
+        Destroy(gameObject, range / bulletSpeed);
     }
 }
