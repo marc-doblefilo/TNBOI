@@ -14,4 +14,13 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D coll) {
+        if(coll.collider.tag == "Player") {
+            PlayerHealth Player = coll.collider.GetComponent<PlayerHealth>();
+            if(Player != null) {
+                Player.PlayerTakeDamage();
+            }
+        }
+    }
 }

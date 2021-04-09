@@ -12,7 +12,7 @@ public class Shooting : MonoBehaviour
 
     public float Force = 10f;
     public float Cooldown = 0.75f;
-    public float Damage = 1.0f;
+    public float Damage = 3.5f;
     public float Range = 10.0f;
 
     private float NextShoot;
@@ -50,19 +50,15 @@ public class Shooting : MonoBehaviour
         Vector3 lookVector = gamepad.rightStick.ReadValue();
         //Vector3 rotatedVector = Quaternion.Euler(0,0,0) * lookVector;
         //firePoint.rotation = Quaternion.LookRotation(forward: Vector3.forward, upwards: rotatedVector);
-        if(lookVector.x > 0 && lookVector.x > lookVector.y) {
-            Vector3 rotatedVector = new Vector3(1, 0, 0);
+        if(Mathf.Abs(lookVector.x) > Mathf.Abs(lookVector.y)) {
+            lookVector.y = 0;
+            Vector3 rotatedVector = Quaternion.Euler(0,0,0) * lookVector;
             firePoint.rotation = Quaternion.LookRotation(forward: Vector3.forward, upwards: rotatedVector);
-        } else if(lookVector.x < 0 && lookVector.x < lookVector.y) {
-            Vector3 rotatedVector = new Vector3(-1, 0, 0);
+        } else {
+            lookVector.x = 0;
+            Vector3 rotatedVector = Quaternion.Euler(0,0,0) * lookVector;
             firePoint.rotation = Quaternion.LookRotation(forward: Vector3.forward, upwards: rotatedVector);
-        } else if(lookVector.y > 0 && lookVector.y > lookVector.x) {
-            Vector3 rotatedVector = new Vector3(0, 1, 0);
-            firePoint.rotation = Quaternion.LookRotation(forward: Vector3.forward, upwards: rotatedVector);
-        } else if(lookVector.y < 0 && lookVector.y < lookVector.x) {
-            Vector3 rotatedVector = new Vector3(0, -1, 0);
-            firePoint.rotation = Quaternion.LookRotation(forward: Vector3.forward, upwards: rotatedVector);
-        } 
+        }
 
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Tear tear = bullet.GetComponent<Tear>();
